@@ -322,7 +322,7 @@ class AtenXlaType {
 
   static at::Tensor elu_backward(const at::Tensor& grad_output,
                                  at::Scalar alpha, at::Scalar scale,
-                                 at::Scalar input_scale,
+                                 at::Scalar input_scale, bool is_result,
                                  const at::Tensor& output);
 
   static at::Tensor embedding(const at::Tensor& weight,

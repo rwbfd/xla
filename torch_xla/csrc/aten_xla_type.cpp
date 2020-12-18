@@ -1204,9 +1204,12 @@ at::Tensor& AtenXlaType::elu_(at::Tensor& self, at::Scalar alpha,
 
 at::Tensor AtenXlaType::elu_backward(const at::Tensor& grad_output,
                                      at::Scalar alpha, at::Scalar scale,
-                                     at::Scalar input_scale,
+                                     at::Scalar input_scale, bool is_result,
                                      const at::Tensor& output) {
   XLA_FN_COUNTER("xla::");
+  XLA_CHECK(!is_result || alpha.to<double>() >= 0.0)
+      << "In-place elu backward calculation is triggered with a negative slope "
+         "which is not supported.";
   return bridge::AtenFromXlaTensor(
       XLATensor::elu_backward(bridge::GetXlaTensor(grad_output), alpha, scale,
                               input_scale, bridge::GetXlaTensor(output)));
