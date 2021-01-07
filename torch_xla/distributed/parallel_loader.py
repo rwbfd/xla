@@ -81,7 +81,7 @@ class ParallelLoader(object):
                fixed_batch_size=False,
                loader_prefetch_size=8,
                device_prefetch_size=4,
-               experimental_steps_per_execution = 1):
+               experimental_steps_per_execution=1):
     self._loader = loader
     self._devices = [torch.device(x) for x in devices]
     self._batchdim = batchdim
